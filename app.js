@@ -2,6 +2,19 @@
 
 /*Set the item in the local storage*/
 let collection = [];
+const storage = localStorage.getItem(JSON.parse('book-Storage'));
+function populateBookShelf() {
+  storage.forEach(element => {
+    bookShelf.appendChild(element)
+  });
+}
+
+// set the book in the local storage
+if(localStorage.getItem('book-Storage')){
+
+  populateBookShelf()
+}
+localStorage.setItem('book-Storage', JSON.stringify(collection));
 const bookShelf = document.querySelector("#book-shelf");
 form = document.querySelector("#library-controls");
 
@@ -35,6 +48,8 @@ function addToShelf(e) {
     removeBook(newAdd);
     bookShelf.removeChild(lineSeparator);
   });
+  storage.push(collection);
+  localStorage.setItem(JSON.stringify('book-Storage'));
 }
 
 const createNewBook = function () {
