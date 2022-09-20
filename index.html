@@ -7,9 +7,12 @@
     <title>Document</title>
   </head>
   <body>
+    <header>
+      <h1>Awesome books</h1>
+    </header>
     <main>
       <section id="library">
-        <ul id="book-shelf"></ul>
+        <div id="book-shelf"></div>
       </section>
       <section id="library-controls">
         <form action="#" method="post">
@@ -21,6 +24,7 @@
             placeholder="Title"
             required
           />
+          <br /><br />
           <!-- <label for="author">Author</label> -->
           <input
             type="text"
@@ -28,7 +32,7 @@
             name="book-author"
             placeholder="Author"
             required
-          />
+          /><br /><br />
 
           <button type="submit" id="add-button">Add</button>
         </form>
