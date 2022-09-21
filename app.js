@@ -1,31 +1,20 @@
-// const books = JSON.parse(localStorage.setItem(''))
-
-/*Set the item in the local storage*/
-let collection = [];
-const storage = localStorage.getItem(JSON.parse('book-Storage'));
-function populateBookShelf() {
-  storage.forEach(element => {
-    bookShelf.appendChild(element)
-  });
-}
-
-// set the book in the local storage
-if(localStorage.getItem('book-Storage')){
-
-  populateBookShelf()
-}
-localStorage.setItem('book-Storage', JSON.stringify(collection));
+const collection = [];
 const bookShelf = document.querySelector("#book-shelf");
-form = document.querySelector("#library-controls");
+const form = document.querySelector("#library-controls");
 
+// defining a dynamic update function for the local storage
+function dynamicStorageUpdate() {
+  localStorage.setItem("bookStorageArr", JSON.stringify(collection));
+}
+
+// defining the constructor for new book objects to be added
 function ReadBook(bTitle, bAuthor) {
   this.title = bTitle;
   this.author = bAuthor;
   this.Id = Math.floor(Math.random() * 1000000);
 }
 
-// const permanentRemove = function () {};
-
+// the function that creates the node and adds it to the bookShelf
 function addToShelf(e) {
   const newAdd = document.createElement("div");
   const titleTag = document.createElement("p");
@@ -35,30 +24,46 @@ function addToShelf(e) {
   titleTag.innerText = e.title;
   authorTag.innerText = e.author;
   removeBtn.innerText = "Remove";
-
   newAdd.appendChild(titleTag);
   newAdd.appendChild(authorTag);
   newAdd.appendChild(removeBtn);
   newAdd.id = e.Id;
   bookShelf.appendChild(newAdd);
   bookShelf.appendChild(lineSeparator);
-  collection.push(newAdd);
-  // console.log(collection);
+
+  // adding the event listener to the remove button of each book
   removeBtn.addEventListener("click", () => {
     removeBook(newAdd);
     bookShelf.removeChild(lineSeparator);
   });
-  storage.push(collection);
-  localStorage.setItem(JSON.stringify('book-Storage'));
+  // dynamicStorageUpdate();
+  // console.log(collection);
 }
 
+// function that will get from storage and add to the collection
+function populateCollection() {
+  const storage = localStorage.getItem(JSON.parse("bookStorageArr"));
+  storage.forEach((element) => {
+    collection.push(element);
+    addToShelf(element);
+  });
+}
+
+// checking if the bookStorageArr array is empty in local storage
+if (!localStorage.getItem("bookStorageArr")) {
+  dynamicStorageUpdate();
+} else {
+  populateCollection();
+}
+
+// the function that creates the new book object from the constructor
 const createNewBook = function () {
   const titleEntry = document.querySelector("#title").value;
   const authorEntry = document.querySelector("#author").value;
   const newBook = new ReadBook(titleEntry, authorEntry);
-  // collection.push(newBook);
+  collection.push(newBook);
   addToShelf(newBook);
-  // form.reset();
+  dynamicStorageUpdate();
 };
 
 form.addEventListener("submit", (e) => {
@@ -67,9 +72,9 @@ form.addEventListener("submit", (e) => {
 });
 
 const removeBook = function (book) {
-  console.log(book.id);
   collection = collection.filter((e) => {
     e.Id != book.id;
   });
+  dynamicStorageUpdate();
   bookShelf.removeChild(book);
 };
