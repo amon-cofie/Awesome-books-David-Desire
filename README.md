@@ -42,11 +42,11 @@ To get a local copy up and running follow these simple example steps:
 - Twitter: [@amon_cofie](https://twitter.com/amon_cofie)
 - LinkedIn: [David Amon-Cofie](https://www.linkedin.com/in/david-amon-cofie-2389ab241/)
 
-👤 **Author2**
+👤 **Massaillon Silue**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- GitHub: [@massaillon](https://github.com/massaillon)
+- Twitter: [@massaillon](https://twitter.com/Massaillon)
+- LinkedIn: [Massaillon Silue](https://www.linkedin.com/in/massaillon-silue-b4297796/)
 
 ## 🤝 Contributing
 
