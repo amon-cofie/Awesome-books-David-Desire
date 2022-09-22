@@ -1,87 +1,89 @@
 const bookShelf = document.querySelector('#book-shelf');
 const form = document.querySelector('#main-form');
 
-// ensure that the existing storage in memory is loaded into the array
-const collection = JSON.parse(localStorage.getItem('bookStorageArr')) || [];
-
-// defining a dynamic update function for the local storage
-function dynamicStorageUpdate(storeArr) {
-  localStorage.setItem('bookStorageArr', JSON.stringify(storeArr));
-}
-
 // defining the constructor for new book objects to be added
-function ReadBook(bTitle, bAuthor) {
-  this.title = bTitle;
-  this.author = bAuthor;
-  this.Id = Math.floor(Math.random() * 1000000);
-}
+class ReadBook {
+  constructor(bTitle, bAuthor) {
+    this.title = bTitle;
+    this.author = bAuthor;
+    this.Id = Math.floor(Math.random() * 1000000);
+  }
 
-// the function that will remove the book from the screen
-function removeBook(book) {
-  bookShelf.removeChild(book);
-}
+  // ensure that the existing storage in memory is loaded into the array
+  static collection = JSON.parse(localStorage.getItem('bookStorageArr')) || [];
 
-// the function that will remove the book from the local storage
-function removeLocal(bookId) {
-  collection.forEach((e) => {
-    if (e.Id === bookId) {
-      const indexArr = collection.indexOf(e);
-      collection.splice(indexArr, 1);
-    }
-  });
-  dynamicStorageUpdate(collection);
-}
+  // defining a dynamic update function for the local storage
+  static dynamicStorageUpdate(storeArr) {
+    localStorage.setItem('bookStorageArr', JSON.stringify(storeArr));
+  }
 
-// defining the function that creates the node and adds it to the bookShelf
-function addToShelf(e) {
-  const newAdd = document.createElement('div');
-  const titleTag = document.createElement('p');
-  const authorTag = document.createElement('p');
-  const removeBtn = document.createElement('button');
-  const lineSeparator = document.createElement('hr');
-  titleTag.innerText = e.title;
-  authorTag.innerText = e.author;
-  removeBtn.innerText = 'Remove';
-  newAdd.appendChild(titleTag);
-  newAdd.appendChild(authorTag);
-  newAdd.appendChild(removeBtn);
-  newAdd.id = e.Id;
-  bookShelf.appendChild(newAdd);
-  bookShelf.appendChild(lineSeparator);
+  // the function that creates the new book object from the constructor
+  static createNewBook() {
+    const titleEntry = document.querySelector('#title').value;
+    const authorEntry = document.querySelector('#author').value;
+    const newBook = new ReadBook(titleEntry, authorEntry);
+    this.collection.push(newBook);
+    this.addToShelf(newBook);
+    this.dynamicStorageUpdate(this.collection);
+  }
 
-  // adding the event listener to the remove button of each book
-  removeBtn.addEventListener('click', () => {
-    removeBook(newAdd);
-    bookShelf.removeChild(lineSeparator);
-    removeLocal(e.Id);
-    // dynamicStorageUpdate(collection);
-  });
-}
+  // function that will get from storage and add to the collection
+  static populateCollection() {
+    this.collection.forEach((element) => {
+      this.addToShelf(element);
+    });
+  }
 
-// function that will get from storage and add to the collection
-function populateCollection() {
-  collection.forEach((element) => {
-    addToShelf(element);
-  });
+  // the function that will remove the book from the screen
+  static removeBook(book) {
+    bookShelf.removeChild(book);
+    // this.addDarkBg();
+  }
+
+  // the function that will remove the book from the local storage
+  static removeLocal(bookId) {
+    this.collection.forEach((e) => {
+      if (e.Id === bookId) {
+        const indexArr = this.collection.indexOf(e);
+        this.collection.splice(indexArr, 1);
+      }
+    });
+    this.dynamicStorageUpdate(this.collection);
+  }
+
+  // defining the function that creates the node and adds it to the bookShelf
+  static addToShelf(e) {
+    const newAdd = document.createElement('div');
+    const bookTag = document.createElement('p');
+
+    const removeBtn = document.createElement('button');
+
+    bookTag.innerText = `"${e.title}" by ${e.author}`;
+
+    removeBtn.innerText = 'Remove';
+    newAdd.appendChild(bookTag);
+    newAdd.classList.add('book-shelf-layout');
+    newAdd.appendChild(removeBtn);
+    newAdd.id = e.Id;
+    bookShelf.appendChild(newAdd);
+    newAdd.classList.add('darker-background');
+
+    // adding the event listener to the remove button of each book
+    removeBtn.addEventListener('click', () => {
+      this.removeBook(newAdd);
+
+      this.removeLocal(e.Id);
+    });
+  }
 }
 
 // invoking the function to display the books on screen
-populateCollection();
-
-// the function that creates the new book object from the constructor
-const createNewBook = function () {
-  const titleEntry = document.querySelector('#title').value;
-  const authorEntry = document.querySelector('#author').value;
-  const newBook = new ReadBook(titleEntry, authorEntry);
-  collection.push(newBook);
-  addToShelf(newBook);
-  dynamicStorageUpdate(collection);
-};
+ReadBook.populateCollection();
 
 // adding the submit event listener to the form
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  createNewBook();
+  ReadBook.createNewBook();
 
   form.reset();
 });

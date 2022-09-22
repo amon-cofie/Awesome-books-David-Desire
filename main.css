@@ -1,3 +1,59 @@
-body {
-  background-color: #fff;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#library h2 {
+  text-align: center;
+}
+
+#book-shelf {
+  width: 80%;
+  height: 35vh;
+  margin: auto;
+  border: 2px solid black;
+  overflow-y: scroll;
+}
+
+#library-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#library-controls h2 {
+  text-align: center;
+}
+
+#main-form {
+  width: 35%;
+}
+
+#title {
+  width: 100%;
+}
+
+#author {
+  width: 100%;
+}
+
+#add-button {
+  float: right;
+}
+
+.horizontal-line {
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.book-shelf-layout {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+}
+
+.darker-background:nth-child(odd) {
+  background-color: rgba(190, 190, 190, 0.7);
 }

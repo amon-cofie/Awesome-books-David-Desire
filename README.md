@@ -2,11 +2,12 @@
 
 # Awesome Books
 
-> In this "Awesom books" project, we created a page with only HTML and javascript as a representation of a low-fidelity wireframe for a book management web app: Awesome books.
+> In this "Awesom books" project, we created a page with HTML, CSS and javascript as a representation of a medium-fidelity wireframe for a book management web app: Awesome books.
 
 ## Built With
 
 - HTML
+- CSS
 - Javascript
 
 ## Live Demo
@@ -15,7 +16,7 @@
 
 ## Getting Started
 
-This project is low-fidelity wireframe of a book management web app. You can open the live link to view it or you can make a copy to personalize it.
+This project is medium-fidelity wireframe of a book management web app. You can open the live link to view it or you can make a copy to personalize it.
 To get a local copy up and running follow these simple example steps:
 
 ### Prerequisites
