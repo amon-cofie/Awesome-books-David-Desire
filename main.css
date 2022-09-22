@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 #library h2 {
   text-align: center;
 }
@@ -15,14 +16,10 @@
   overflow-y: scroll;
 }
 
-/* #book-shelf:: */
-
 #library-controls {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
-  /* border: 1px solid black; */
 }
 
 #library-controls h2 {
@@ -57,6 +54,6 @@
   padding: 0.25rem 0.5rem;
 }
 
-.darker-background:nth-child(even) {
-  background-color: rgba(150, 150, 150, 0.9);
+.darker-background:nth-child(odd) {
+  background-color: rgba(190, 190, 190, 0.7);
 }

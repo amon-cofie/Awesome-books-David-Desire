@@ -1,5 +1,5 @@
-const bookShelf = document.querySelector("#book-shelf");
-const form = document.querySelector("#main-form");
+const bookShelf = document.querySelector('#book-shelf');
+const form = document.querySelector('#main-form');
 
 // defining the constructor for new book objects to be added
 class ReadBook {
@@ -10,17 +10,17 @@ class ReadBook {
   }
 
   // ensure that the existing storage in memory is loaded into the array
-  static collection = JSON.parse(localStorage.getItem("bookStorageArr")) || [];
+  static collection = JSON.parse(localStorage.getItem('bookStorageArr')) || [];
 
   // defining a dynamic update function for the local storage
   static dynamicStorageUpdate(storeArr) {
-    localStorage.setItem("bookStorageArr", JSON.stringify(storeArr));
+    localStorage.setItem('bookStorageArr', JSON.stringify(storeArr));
   }
 
   // the function that creates the new book object from the constructor
   static createNewBook() {
-    const titleEntry = document.querySelector("#title").value;
-    const authorEntry = document.querySelector("#author").value;
+    const titleEntry = document.querySelector('#title').value;
+    const authorEntry = document.querySelector('#author').value;
     const newBook = new ReadBook(titleEntry, authorEntry);
     this.collection.push(newBook);
     this.addToShelf(newBook);
@@ -37,6 +37,7 @@ class ReadBook {
   // the function that will remove the book from the screen
   static removeBook(book) {
     bookShelf.removeChild(book);
+    // this.addDarkBg();
   }
 
   // the function that will remove the book from the local storage
@@ -52,33 +53,25 @@ class ReadBook {
 
   // defining the function that creates the node and adds it to the bookShelf
   static addToShelf(e) {
-    const newAdd = document.createElement("div");
-    const bookTag = document.createElement("p");
+    const newAdd = document.createElement('div');
+    const bookTag = document.createElement('p');
 
-    const removeBtn = document.createElement("button");
-    const lineSeparator = document.createElement("hr");
+    const removeBtn = document.createElement('button');
+
     bookTag.innerText = `"${e.title}" by ${e.author}`;
 
-    removeBtn.innerText = "Remove";
+    removeBtn.innerText = 'Remove';
     newAdd.appendChild(bookTag);
-    newAdd.classList.add("book-shelf-layout");
+    newAdd.classList.add('book-shelf-layout');
     newAdd.appendChild(removeBtn);
     newAdd.id = e.Id;
     bookShelf.appendChild(newAdd);
-    bookShelf.appendChild(lineSeparator);
-    while (this.darkFlagger <= this.collection.length) {
-      // if (this.darkFlagger % 2 === 0) {
-      //   newAdd.classList.add("darker-background");
-      // }
-      console.log(this.darkFlagger);
-      console.log(this.collection);
-      this.darkFlagger++;
-    }
+    newAdd.classList.add('darker-background');
 
     // adding the event listener to the remove button of each book
-    removeBtn.addEventListener("click", () => {
+    removeBtn.addEventListener('click', () => {
       this.removeBook(newAdd);
-      bookShelf.removeChild(lineSeparator);
+
       this.removeLocal(e.Id);
     });
   }
@@ -88,7 +81,7 @@ class ReadBook {
 ReadBook.populateCollection();
 
 // adding the submit event listener to the form
-form.addEventListener("submit", (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
   ReadBook.createNewBook();
 
