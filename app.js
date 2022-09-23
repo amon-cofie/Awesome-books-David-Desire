@@ -1,5 +1,10 @@
 const bookShelf = document.querySelector('#book-shelf');
 const form = document.querySelector('#main-form');
+const librarySection = document.querySelector('#library');
+const addBookSection = document.querySelector('#add-new-book');
+const contactUs = document.querySelector('#contact-us-section');
+addBookSection.classList.add('hidden');
+contactUs.classList.add('hidden');
 
 // defining the constructor for new book objects to be added
 class ReadBook {
@@ -57,6 +62,7 @@ class ReadBook {
     const bookTag = document.createElement('p');
 
     const removeBtn = document.createElement('button');
+    removeBtn.classList.add('removeBtnStyle');
 
     bookTag.innerText = `"${e.title}" by ${e.author}`;
 
@@ -87,3 +93,41 @@ form.addEventListener('submit', (e) => {
 
   form.reset();
 });
+
+const nav1 = document.querySelector('.nav-1 button');
+const nav2 = document.querySelector('.nav-2 button');
+const nav3 = document.querySelector('.nav-3 button');
+
+function displayList() {
+  librarySection.classList.remove('hidden');
+  addBookSection.classList.add('hidden');
+  contactUs.classList.add('hidden');
+  nav1.classList.add('selected');
+  nav2.classList.remove('selected');
+  nav3.classList.remove('selected');
+}
+
+function displayForm() {
+  librarySection.classList.add('hidden');
+  addBookSection.classList.remove('hidden');
+  contactUs.classList.add('hidden');
+  nav1.classList.remove('selected');
+  nav2.classList.add('selected');
+  nav3.classList.remove('selected');
+}
+
+function displayContact() {
+  librarySection.classList.add('hidden');
+  addBookSection.classList.add('hidden');
+  contactUs.classList.remove('hidden');
+  nav1.classList.remove('selected');
+  nav2.classList.remove('selected');
+  nav3.classList.add('selected');
+}
+
+document.getElementById('library').onclick = displayList;
+document.getElementById('add-new-book').onclick = displayForm;
+document.getElementById('contact-us-section').onclick = displayContact;
+
+const dateBox = document.querySelector('.date');
+dateBox.innerText = new Date();
